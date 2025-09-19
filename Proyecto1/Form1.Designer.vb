@@ -30,7 +30,12 @@ Partial Class Form1
         Me.BttnInsertar = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.Bttnarchivo = New System.Windows.Forms.Button()
+        Me.dgvDatos = New System.Windows.Forms.DataGridView()
+        Me.progressBar = New System.Windows.Forms.ProgressBar()
+        Me.lblProgreso = New System.Windows.Forms.Label()
+        Me.btnLimpiar = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
+        CType(Me.dgvDatos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -83,26 +88,89 @@ Partial Class Form1
         '
         'Bttnarchivo
         '
-        Me.Bttnarchivo.Location = New System.Drawing.Point(78, 283)
+        Me.Bttnarchivo.Location = New System.Drawing.Point(78, 50)
         Me.Bttnarchivo.Name = "Bttnarchivo"
         Me.Bttnarchivo.Size = New System.Drawing.Size(129, 44)
         Me.Bttnarchivo.TabIndex = 2
         Me.Bttnarchivo.Text = "Adjuntar Archivo"
         Me.Bttnarchivo.UseVisualStyleBackColor = True
         '
+        'dgvDatos
+        '
+        Me.dgvDatos.AllowUserToAddRows = False
+        Me.dgvDatos.AllowUserToDeleteRows = False
+        Me.dgvDatos.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvDatos.Location = New System.Drawing.Point(12, 120)
+        Me.dgvDatos.Name = "dgvDatos"
+        Me.dgvDatos.ReadOnly = True
+        Me.dgvDatos.RowHeadersWidth = 51
+        Me.dgvDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvDatos.Size = New System.Drawing.Size(550, 250)
+        Me.dgvDatos.TabIndex = 3
+        '
+        'progressBar
+        '
+        Me.progressBar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.progressBar.Location = New System.Drawing.Point(12, 380)
+        Me.progressBar.Name = "progressBar"
+        Me.progressBar.Size = New System.Drawing.Size(450, 25)
+        Me.progressBar.TabIndex = 4
+        Me.progressBar.Visible = False
+        '
+        'lblProgreso
+        '
+        Me.lblProgreso.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblProgreso.AutoSize = True
+        Me.lblProgreso.Location = New System.Drawing.Point(12, 410)
+        Me.lblProgreso.Name = "lblProgreso"
+        Me.lblProgreso.Size = New System.Drawing.Size(0, 16)
+        Me.lblProgreso.TabIndex = 5
+        Me.lblProgreso.Visible = False
+        '
+        'btnLimpiar
+        '
+        Me.btnLimpiar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnLimpiar.BackColor = System.Drawing.Color.IndianRed
+        Me.btnLimpiar.ForeColor = System.Drawing.Color.White
+        Me.btnLimpiar.Location = New System.Drawing.Point(470, 380)
+        Me.btnLimpiar.Name = "btnLimpiar"
+        Me.btnLimpiar.Size = New System.Drawing.Size(90, 25)
+        Me.btnLimpiar.TabIndex = 6
+        Me.btnLimpiar.Text = "Limpiar Tabla"
+        Me.btnLimpiar.UseVisualStyleBackColor = False
+        '
+        'BttnInsertar
+        '
+        Me.BttnInsertar.Location = New System.Drawing.Point(230, 50)
+        Me.BttnInsertar.Name = "BttnInsertar"
+        Me.BttnInsertar.Size = New System.Drawing.Size(131, 44)
+        Me.BttnInsertar.TabIndex = 1
+        Me.BttnInsertar.Text = "Insertar"
+        Me.BttnInsertar.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(584, 450)
+        Me.Controls.Add(Me.btnLimpiar)
+        Me.Controls.Add(Me.lblProgreso)
+        Me.Controls.Add(Me.progressBar)
+        Me.Controls.Add(Me.dgvDatos)
         Me.Controls.Add(Me.Bttnarchivo)
         Me.Controls.Add(Me.BttnInsertar)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "Form1"
-        Me.Text = "Form1"
+        Me.Text = "Sistema de Asistencia"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        CType(Me.dgvDatos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -116,4 +184,8 @@ Partial Class Form1
     Friend WithEvents BttnInsertar As Button
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
     Friend WithEvents Bttnarchivo As Button
+    Friend WithEvents dgvDatos As DataGridView
+    Friend WithEvents progressBar As ProgressBar
+    Friend WithEvents lblProgreso As Label
+    Friend WithEvents btnLimpiar As Button
 End Class
