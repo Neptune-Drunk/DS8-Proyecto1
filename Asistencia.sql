@@ -37,6 +37,26 @@ INSERT INTO empleados (codigo_marcacion, nombre) VALUES
 (19, 'Jorge Molina'),
 (33, 'Natalia Ruiz');
 
+-- Empleados faltantes detectados en los registros (agregados)
+INSERT INTO empleados (codigo_marcacion, nombre) VALUES
+(1,  'Empleado 1'),
+(10, 'Empleado 10'),
+(14, 'Empleado 14'),
+(17, 'Empleado 17'),
+(20, 'Empleado 20'),
+(24, 'Empleado 24'),
+(25, 'Empleado 25'),
+(27, 'Empleado 27'),
+(28, 'Empleado 28'),
+(29, 'Empleado 29'),
+(35, 'Empleado 35'),
+(37, 'Empleado 37'),
+(39, 'Empleado 39'),
+(43, 'Empleado 43'),
+(44, 'Empleado 44'),
+(46, 'Empleado 46'),
+(47, 'Empleado 47');
+
 -- Tabla de marcaciones (vacía al inicio)
 -- Se divide 'horario' en 'fecha' (DATE) y 'hora' (VARCHAR)
 CREATE TABLE marcaciones (

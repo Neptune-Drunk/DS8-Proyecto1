@@ -405,4 +405,9 @@ Public Class Form1
             End Try
         End If
     End Sub
+    Private Sub ConsultaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsultaToolStripMenuItem.Click
+        Dim consultaForm As New Form2()
+        consultaForm.Show()
+        Me.Hide()
+    End Sub
 End Class
