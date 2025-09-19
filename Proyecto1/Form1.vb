@@ -4,22 +4,27 @@ Imports MySql.Data.MySqlClient
 
 Public Class Form1
     Dim archivo As String
-    Dim cm As MySqlCommand
-    Dim pr As MySqlDataAdapter
-    Dim ds1 As DataSet
-    Dim conexion As String = "Server=localhost;database=asistencia;user=root;password='';"
-    Dim miconexion As New MySqlConnection(conexion)
+    Dim conexion As String = "Server=localhost;Database=asistencia;User=root;Password=;"
+    Dim miconexion As MySqlConnection
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            miconexion = New MySqlConnection(conexion)
             miconexion.Open()
-            cm = New MySqlCommand()
-            cm.CommandType = CommandType.Text
-            cm.Connection = miconexion
-            pr = New MySqlDataAdapter(cm)
-            ds1 = New DataSet()
-            pr.Fill(ds1)
-        Catch ex As Exception
-            MsgBox("Error de Conexión")
+
+            ' Test the connection with a simple query
+            Using cmd As New MySqlCommand("SELECT 1", miconexion)
+                cmd.ExecuteScalar()
+            End Using
+
+            MessageBox.Show("Conexión establecida exitosamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Catch ex As MySqlException
+            MessageBox.Show($"Error de Conexión: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If miconexion IsNot Nothing AndAlso miconexion.State = ConnectionState.Open Then
+                miconexion.Close()
+            End If
         End Try
     End Sub
 
@@ -41,43 +46,52 @@ Public Class Form1
         End If
 
         Dim lines() As String = System.IO.File.ReadAllLines(archivo)
-        Dim conexionbase As String = "Server=localhost;database=asistencia;user=root;password='';"
+        Dim successCount As Integer = 0
+        Dim errorCount As Integer = 0
 
-        For Each line As String In lines
-            Dim parts() As String = line.Split(vbTab)
-            If parts.Length >= 2 Then
-                Dim id As String = parts(0).Trim()
-                Dim fechaHora As String = parts(1).Trim()
-                Dim fecha As String = ""
-                Dim hora As String = ""
+        Try
+            Using connection As New MySqlConnection(conexion)
+                connection.Open()
 
-                Dim fechaHoraParts() As String = fechaHora.Split(" "c)
-                If fechaHoraParts.Length = 2 Then
-                    fecha = fechaHoraParts(0)
-                    hora = fechaHoraParts(1)
-                Else
-                    MessageBox.Show("Formato de fecha y hora inválido en la línea: " & line)
-                    Continue For
-                End If
+                For Each line As String In lines
+                    Dim parts() As String = line.Split(vbTab)
+                    If parts.Length >= 2 Then
+                        Dim id As String = parts(0).Trim()
+                        Dim fechaHora As String = parts(1).Trim()
+                        Dim fecha As String = ""
+                        Dim hora As String = ""
 
-                Try
-                    Using miconexion As New MySqlConnection(conexionbase)
-                        miconexion.Open()
-                        Dim query As String = "INSERT INTO asistencia (id, fecha, hora) VALUES (@id, @fecha, @hora)"
-                        Using cmd As New MySqlCommand(query, miconexion)
-                            cmd.Parameters.AddWithValue("@id", id)
-                            cmd.Parameters.AddWithValue("@fecha", fecha)
-                            cmd.Parameters.AddWithValue("@hora", hora)
-                            cmd.ExecuteNonQuery()
-                        End Using
-                    End Using
-                Catch ex As Exception
-                    MessageBox.Show("Error al insertar el registro: " & ex.Message)
-                End Try
-            Else
-                MessageBox.Show("Línea inválida en el archivo: " & line)
-            End If
-        Next
-        MessageBox.Show("Datos insertados correctamente.")
+                        Dim fechaHoraParts() As String = fechaHora.Split(" "c)
+                        If fechaHoraParts.Length = 2 Then
+                            fecha = fechaHoraParts(0)
+                            hora = fechaHoraParts(1)
+                        Else
+                            errorCount += 1
+                            Continue For
+                        End If
+
+                        Try
+                            Dim query As String = "INSERT INTO asistencia (id, fecha, hora) VALUES (@id, @fecha, @hora)"
+                            Using cmd As New MySqlCommand(query, connection)
+                                cmd.Parameters.AddWithValue("@id", id)
+                                cmd.Parameters.AddWithValue("@fecha", fecha)
+                                cmd.Parameters.AddWithValue("@hora", hora)
+                                cmd.ExecuteNonQuery()
+                                successCount += 1
+                            End Using
+                        Catch ex As Exception
+                            errorCount += 1
+                        End Try
+                    Else
+                        errorCount += 1
+                    End If
+                Next
+            End Using
+
+            MessageBox.Show($"Proceso completado. Registros insertados: {successCount}, Errores: {errorCount}", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Catch ex As Exception
+            MessageBox.Show($"Error al procesar el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 End Class
