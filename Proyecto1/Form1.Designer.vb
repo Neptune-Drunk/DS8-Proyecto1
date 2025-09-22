@@ -24,7 +24,6 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.MenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.InsertarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConsultaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BttnInsertar = New System.Windows.Forms.Button()
@@ -44,22 +43,16 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(800, 28)
+        Me.MenuStrip1.Size = New System.Drawing.Size(584, 28)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'MenuToolStripMenuItem
         '
-        Me.MenuToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InsertarToolStripMenuItem, Me.ConsultaToolStripMenuItem, Me.SalirToolStripMenuItem})
+        Me.MenuToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConsultaToolStripMenuItem, Me.SalirToolStripMenuItem})
         Me.MenuToolStripMenuItem.Name = "MenuToolStripMenuItem"
         Me.MenuToolStripMenuItem.Size = New System.Drawing.Size(60, 24)
         Me.MenuToolStripMenuItem.Text = "Menu"
-        '
-        'InsertarToolStripMenuItem
-        '
-        Me.InsertarToolStripMenuItem.Name = "InsertarToolStripMenuItem"
-        Me.InsertarToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
-        Me.InsertarToolStripMenuItem.Text = "Insertar"
         '
         'ConsultaToolStripMenuItem
         '
@@ -75,9 +68,9 @@ Partial Class Form1
         '
         'BttnInsertar
         '
-        Me.BttnInsertar.Location = New System.Drawing.Point(354, 278)
+        Me.BttnInsertar.Location = New System.Drawing.Point(230, 50)
         Me.BttnInsertar.Name = "BttnInsertar"
-        Me.BttnInsertar.Size = New System.Drawing.Size(131, 49)
+        Me.BttnInsertar.Size = New System.Drawing.Size(131, 44)
         Me.BttnInsertar.TabIndex = 1
         Me.BttnInsertar.Text = "Insertar"
         Me.BttnInsertar.UseVisualStyleBackColor = True
@@ -144,15 +137,6 @@ Partial Class Form1
         Me.btnLimpiar.Text = "Limpiar Tabla"
         Me.btnLimpiar.UseVisualStyleBackColor = False
         '
-        'BttnInsertar
-        '
-        Me.BttnInsertar.Location = New System.Drawing.Point(230, 50)
-        Me.BttnInsertar.Name = "BttnInsertar"
-        Me.BttnInsertar.Size = New System.Drawing.Size(131, 44)
-        Me.BttnInsertar.TabIndex = 1
-        Me.BttnInsertar.Text = "Insertar"
-        Me.BttnInsertar.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -178,7 +162,6 @@ Partial Class Form1
 
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents MenuToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents InsertarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConsultaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BttnInsertar As Button
