@@ -534,4 +534,8 @@ Public Class Form1
         consultaForm.Show()
         Me.Hide()
     End Sub
+
+    Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
+        Application.Exit()
+    End Sub
 End Class
