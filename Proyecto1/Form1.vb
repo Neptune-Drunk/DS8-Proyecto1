@@ -1,5 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports MySql.Data.MySqlClient
 Imports System.Text.RegularExpressions
 Imports System.Globalization
@@ -8,9 +7,16 @@ Public Class Form1
     Dim archivo As String
     Dim conexion As String = "Server=localhost;Database=Asistencia;User=root;Password=;"
     Dim miconexion As MySqlConnection
+    Dim archivoYaCargado As Boolean = False
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            ' Configurar apariencia del formulario
+            ConfigurarAparienciaFormulario()
+
+            ' Deshabilitar el botón insertar al inicio
+            BttnInsertar.Enabled = False
+
             miconexion = New MySqlConnection(conexion)
             miconexion.Open()
 
@@ -31,7 +37,69 @@ Public Class Form1
         End Try
     End Sub
 
+    ' Método para configurar la apariencia general del formulario
+    Private Sub ConfigurarAparienciaFormulario()
+        ' Configurar el formulario principal
+        Me.BackColor = Color.FromArgb(236, 240, 241)
+        Me.Font = New Font("Segoe UI", 9)
+
+        ' Configurar MenuStrip
+        MenuStrip1.BackColor = Color.FromArgb(52, 73, 94)
+        MenuStrip1.ForeColor = Color.White
+        MenuToolStripMenuItem.ForeColor = Color.White
+
+        ' Configurar botones con estilo moderno
+        ConfigurarBoton(Bttnarchivo, Color.FromArgb(52, 152, 219), Color.White)
+        ConfigurarBoton(BttnInsertar, Color.FromArgb(46, 204, 113), Color.White)
+
+        ' El botón limpiar ya tiene colores configurados en el designer
+        btnLimpiar.Font = New Font("Segoe UI", 9, FontStyle.Bold)
+
+        ' Configurar etiquetas
+        lblProgreso.Font = New Font("Segoe UI", 9)
+        lblProgreso.ForeColor = Color.FromArgb(52, 73, 94)
+
+        ' Configurar barra de progreso
+        progressBar.ForeColor = Color.FromArgb(52, 152, 219)
+    End Sub
+
+    ' Método para configurar el estilo de los botones
+    Private Sub ConfigurarBoton(boton As Button, colorFondo As Color, colorTexto As Color)
+        boton.BackColor = colorFondo
+        boton.ForeColor = colorTexto
+        boton.FlatStyle = FlatStyle.Flat
+        boton.FlatAppearance.BorderSize = 0
+        boton.Font = New Font("Segoe UI", 9, FontStyle.Bold)
+        boton.Cursor = Cursors.Hand
+
+        ' Agregar eventos de hover
+        AddHandler boton.MouseEnter, Sub() BotonMouseEnter(boton, colorFondo)
+        AddHandler boton.MouseLeave, Sub() BotonMouseLeave(boton, colorFondo)
+    End Sub
+
+    ' Eventos de hover para botones
+    Private Sub BotonMouseEnter(boton As Button, colorOriginal As Color)
+        If boton.Enabled Then
+            boton.BackColor = Color.FromArgb(Math.Max(0, colorOriginal.R - 30),
+                                           Math.Max(0, colorOriginal.G - 30),
+                                           Math.Max(0, colorOriginal.B - 30))
+        End If
+    End Sub
+
+    Private Sub BotonMouseLeave(boton As Button, colorOriginal As Color)
+        If boton.Enabled Then
+            boton.BackColor = colorOriginal
+        End If
+    End Sub
+
     Private Sub Bttnarchivo_Click(sender As Object, e As EventArgs) Handles Bttnarchivo.Click
+        ' Verificar si ya hay un archivo cargado
+        If archivoYaCargado Then
+            MessageBox.Show("Ya tienes un archivo adjuntado. Debes limpiar la tabla antes de adjuntar un nuevo archivo.",
+                           "Archivo ya cargado", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
         Dim openFileDialog As New OpenFileDialog()
         openFileDialog.Title = "Seleccione el archivo"
         openFileDialog.Filter = "Archivos DAT (*.dat)|*.dat"
@@ -39,6 +107,8 @@ Public Class Form1
         If openFileDialog.ShowDialog() = DialogResult.OK Then
             archivo = openFileDialog.FileName
             MessageBox.Show("Archivo seleccionado: " & archivo)
+            ' Habilitar el botón insertar una vez que se selecciona un archivo
+            BttnInsertar.Enabled = True
         End If
     End Sub
 
@@ -75,9 +145,10 @@ Public Class Form1
         lblProgreso.Visible = True
         lblProgreso.Text = "Iniciando procesamiento..."
 
-        ' Deshabilitar botón para evitar múltiples procesos
+        ' Deshabilitar botones para evitar múltiples procesos
         Bttnarchivo.Enabled = False
         BttnInsertar.Enabled = False
+        btnLimpiar.Enabled = False
 
         Dim successCount As Integer = 0
         Dim errorCount As Integer = 0
@@ -158,14 +229,9 @@ Public Class Form1
                                                        .Select(Function(m) m.Value) _
                                                        .ToList()
 
-                    ' DIAGNÓSTICO: Mostrar primera línea para debug (solo una vez)
+                    ' Diagnóstico silencioso de primera línea (sin mostrar ventana)
                     If lineCount = 1 Then
-                        Dim vista As String = If(tokens IsNot Nothing, String.Join(" | ", tokens), "(sin tokens)")
-                        MessageBox.Show($"Primera línea del archivo:" & vbNewLine &
-                                        $"Contenido: '{line}'" & vbNewLine &
-                                        $"Tokens encontrados: {tokens.Count}" & vbNewLine &
-                                        $"Tokens: {vista}",
-                                        "Diagnóstico", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        ' Información guardada para logs internos si es necesario
                     End If
 
                     ' Necesitamos al menos: código y fecha-hora (que puede venir como 1 token o 2 tokens separados)
@@ -313,45 +379,19 @@ Public Class Form1
             progressBar.Visible = False
             lblProgreso.Visible = False
 
-            ' Mostrar resultado detallado
-            Dim mensaje As String = $"🔍 DIAGNÓSTICO COMPLETO DEL PROCESAMIENTO{vbNewLine}{vbNewLine}"
-            mensaje += $"� ARCHIVO:{vbNewLine}"
-            mensaje += $"Total líneas en archivo: {lineCount:N0}{vbNewLine}"
-            mensaje += $"Líneas vacías: {emptyLines:N0}{vbNewLine}"
-            mensaje += $"Formato incorrecto/fecha-hora inválida: {wrongFormat:N0}{vbNewLine}{vbNewLine}"
-
-            mensaje += $"🔢 CÓDIGOS DE EMPLEADOS:{vbNewLine}"
-            If codigosEncontrados.Count > 0 Then
-                mensaje += $"Códigos válidos encontrados: {String.Join(", ", codigosEncontrados.OrderBy(Function(x) x))}{vbNewLine}"
-            End If
-            If codigosNoEncontrados.Count > 0 Then
-                mensaje += $"Códigos NO existentes en BD: {String.Join(", ", codigosNoEncontrados.OrderBy(Function(x) x))}{vbNewLine}"
-            End If
-            mensaje += $"{vbNewLine}"
-
-            mensaje += $"📊 PROCESAMIENTO:{vbNewLine}"
-            mensaje += $"Códigos inválidos (no numéricos): {invalidCodes:N0}{vbNewLine}"
-            mensaje += $"Empleados no existentes: {nonExistentEmployees:N0}{vbNewLine}"
-            mensaje += $"Duplicados omitidos: {duplicateCount:N0}{vbNewLine}"
-            mensaje += $"Registros procesados exitosamente: {successCount:N0}{vbNewLine}{vbNewLine}"
-
-            If duplicateCount > 0 Then
-                mensaje += $"Duplicados omitidos: {duplicateCount:N0}{vbNewLine}"
-            End If
-            If errorCount > 0 Then
-                mensaje += $"Errores encontrados: {errorCount:N0}{vbNewLine}"
-            End If
-            If skippedCount > 0 Then
-                mensaje += $"Empleados no válidos omitidos: {skippedCount:N0}{vbNewLine}"
-            End If
-
-            ' Verificar si el código 39 fue procesado
+            ' Mostrar resultado simplificado
             If successCount > 0 Then
-                mensaje += $"{vbNewLine}Los datos se han guardado correctamente en la base de datos."
-                MessageBox.Show(mensaje, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show($"✅ Procesamiento completado exitosamente!{vbNewLine}{vbNewLine}" &
+                               $"📊 Registros insertados: {successCount:N0}{vbNewLine}" &
+                               $"❌ Duplicados omitidos: {duplicateCount:N0}{vbNewLine}" &
+                               $"⚠️ Errores: {errorCount:N0}",
+                               "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                ' Marcar que ya se cargó un archivo exitosamente
+                archivoYaCargado = True
                 CargarDatos()
             Else
-                MessageBox.Show(mensaje, "Información", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("❌ No se insertaron registros. Verifique el formato del archivo.",
+                               "Sin cambios", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
 
         Catch ex As MySqlException
@@ -365,7 +405,11 @@ Public Class Form1
         Finally
             ' Rehabilitar botones
             Bttnarchivo.Enabled = True
-            BttnInsertar.Enabled = True
+            btnLimpiar.Enabled = True
+            ' Solo habilitar Insertar si NO se cargó exitosamente el archivo
+            If Not archivoYaCargado Then
+                BttnInsertar.Enabled = True
+            End If
         End Try
     End Sub
 
@@ -374,15 +418,91 @@ Public Class Form1
         Try
             Using connection As New MySqlConnection(conexion)
                 connection.Open()
-                Dim query As String = "SELECT m.id, m.fecha, m.hora, m.codigo_marcacion, e.nombre FROM marcaciones m LEFT JOIN empleados e ON m.codigo_marcacion = e.codigo_marcacion ORDER BY m.id DESC"
+                ' Mejorar la consulta con nombres más descriptivos y orden lógico
+                Dim query As String = "SELECT " &
+                                     "e.nombre AS 'Empleado', " &
+                                     "m.codigo_marcacion AS 'Código', " &
+                                     "DATE_FORMAT(m.fecha, '%d/%m/%Y') AS 'Fecha', " &
+                                     "m.hora AS 'Hora', " &
+                                     "m.id AS 'ID' " &
+                                     "FROM marcaciones m " &
+                                     "LEFT JOIN empleados e ON m.codigo_marcacion = e.codigo_marcacion " &
+                                     "ORDER BY m.fecha DESC, m.hora DESC"
                 Dim adapter As New MySqlDataAdapter(query, connection)
                 Dim dt As New DataTable()
                 adapter.Fill(dt)
                 dgvDatos.DataSource = dt
+
+                ' Configurar apariencia del DataGridView
+                ConfigurarDataGridView()
             End Using
         Catch ex As Exception
             MessageBox.Show($"Error al cargar los datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+    End Sub
+
+    ' Método para configurar la apariencia del DataGridView
+    Private Sub ConfigurarDataGridView()
+        With dgvDatos
+            ' Configuraciones generales
+            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            .RowHeadersVisible = False
+            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            .MultiSelect = False
+            .AllowUserToAddRows = False
+            .AllowUserToDeleteRows = False
+            .ReadOnly = True
+
+            ' Estilos de encabezados
+            .EnableHeadersVisualStyles = False
+            .ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(52, 73, 94)
+            .ColumnHeadersDefaultCellStyle.ForeColor = Color.White
+            .ColumnHeadersDefaultCellStyle.Font = New Font("Segoe UI", 10, FontStyle.Bold)
+            .ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .ColumnHeadersHeight = 35
+
+            ' Estilos de celdas
+            .DefaultCellStyle.BackColor = Color.White
+            .DefaultCellStyle.ForeColor = Color.FromArgb(44, 62, 80)
+            .DefaultCellStyle.Font = New Font("Segoe UI", 9)
+            .DefaultCellStyle.SelectionBackColor = Color.FromArgb(52, 152, 219)
+            .DefaultCellStyle.SelectionForeColor = Color.White
+
+            ' Filas alternadas
+            .AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 249, 250)
+
+            ' Bordes
+            .GridColor = Color.FromArgb(189, 195, 199)
+            .BorderStyle = BorderStyle.Fixed3D
+
+            If .Columns.Count > 0 Then
+                ' Configurar anchos y alineaciones específicas
+                If .Columns.Contains("Empleado") Then
+                    .Columns("Empleado").FillWeight = 35 ' Más espacio para nombres
+                    .Columns("Empleado").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+                End If
+
+                If .Columns.Contains("Código") Then
+                    .Columns("Código").FillWeight = 15
+                    .Columns("Código").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                End If
+
+                If .Columns.Contains("Fecha") Then
+                    .Columns("Fecha").FillWeight = 20
+                    .Columns("Fecha").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                End If
+
+                If .Columns.Contains("Hora") Then
+                    .Columns("Hora").FillWeight = 15
+                    .Columns("Hora").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                End If
+
+                If .Columns.Contains("ID") Then
+                    .Columns("ID").FillWeight = 15
+                    .Columns("ID").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                End If
+            End If
+        End With
     End Sub
 
     ' Método para limpiar la tabla de marcaciones
@@ -397,6 +517,10 @@ Public Class Form1
                     Using cmd As New MySqlCommand(query, connection)
                         Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
                         MessageBox.Show($"Se eliminaron {rowsAffected} registros correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        ' Resetear el estado para permitir nuevos archivos
+                        archivoYaCargado = False
+                        archivo = ""
+                        BttnInsertar.Enabled = False
                         CargarDatos()
                     End Using
                 End Using
