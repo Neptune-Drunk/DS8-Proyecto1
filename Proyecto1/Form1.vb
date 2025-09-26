@@ -529,13 +529,19 @@ Public Class Form1
             End Try
         End If
     End Sub
-    Private Sub ConsultaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsultaToolStripMenuItem.Click
+
+
+    Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
+        Application.Exit()
+    End Sub
+
+    Private Sub ConsultaToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ConsultaToolStripMenuItem1.Click
         Dim consultaForm As New Form2()
         consultaForm.Show()
         Me.Hide()
     End Sub
 
-    Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
-        Application.Exit()
+    Private Sub DiasLibresToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DiasLibresToolStripMenuItem.Click
+
     End Sub
 End Class

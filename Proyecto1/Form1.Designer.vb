@@ -24,8 +24,9 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.MenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConsultaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConsultaToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DiasLibresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BttnInsertar = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.Bttnarchivo = New System.Windows.Forms.Button()
@@ -42,7 +43,7 @@ Partial Class Form1
         Me.MenuStrip1.BackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
         Me.MenuStrip1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuToolStripMenuItem, Me.ConsultaToolStripMenuItem1, Me.DiasLibresToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(584, 28)
@@ -51,23 +52,31 @@ Partial Class Form1
         '
         'MenuToolStripMenuItem
         '
-        Me.MenuToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConsultaToolStripMenuItem, Me.SalirToolStripMenuItem})
+        Me.MenuToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SalirToolStripMenuItem})
         Me.MenuToolStripMenuItem.ForeColor = System.Drawing.Color.White
         Me.MenuToolStripMenuItem.Name = "MenuToolStripMenuItem"
         Me.MenuToolStripMenuItem.Size = New System.Drawing.Size(60, 24)
         Me.MenuToolStripMenuItem.Text = "Menu"
-        '
-        'ConsultaToolStripMenuItem
-        '
-        Me.ConsultaToolStripMenuItem.Name = "ConsultaToolStripMenuItem"
-        Me.ConsultaToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
-        Me.ConsultaToolStripMenuItem.Text = "Consulta"
         '
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
         Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.SalirToolStripMenuItem.Text = "Salir"
+        '
+        'ConsultaToolStripMenuItem1
+        '
+        Me.ConsultaToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.ConsultaToolStripMenuItem1.Name = "ConsultaToolStripMenuItem1"
+        Me.ConsultaToolStripMenuItem1.Size = New System.Drawing.Size(80, 24)
+        Me.ConsultaToolStripMenuItem1.Text = "Consulta"
+        '
+        'DiasLibresToolStripMenuItem
+        '
+        Me.DiasLibresToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.DiasLibresToolStripMenuItem.Name = "DiasLibresToolStripMenuItem"
+        Me.DiasLibresToolStripMenuItem.Size = New System.Drawing.Size(95, 24)
+        Me.DiasLibresToolStripMenuItem.Text = "Dias Libres"
         '
         'BttnInsertar
         '
@@ -194,7 +203,6 @@ Partial Class Form1
 
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents MenuToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ConsultaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BttnInsertar As Button
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
@@ -203,4 +211,6 @@ Partial Class Form1
     Friend WithEvents progressBar As ProgressBar
     Friend WithEvents lblProgreso As Label
     Friend WithEvents btnLimpiar As Button
+    Friend WithEvents ConsultaToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents DiasLibresToolStripMenuItem As ToolStripMenuItem
 End Class

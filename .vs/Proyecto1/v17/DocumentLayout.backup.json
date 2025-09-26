@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|d:\\proyectos de vb\\proyecto1\\proyecto1\\proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
       "RelativeMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|solutionrelative:proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|d:\\proyectos de vb\\proyecto1\\proyecto1\\proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
       "RelativeMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|solutionrelative:proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
@@ -36,7 +36,7 @@
               "RelativeDocumentMoniker": "Proyecto1\\Form2.vb",
               "ToolTip": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form2.vb",
               "RelativeToolTip": "Proyecto1\\Form2.vb",
-              "ViewState": "AgIAABQAAAAAAAAAAAAQwBcAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAOcAAAAAAAAAAADwvxsBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
               "WhenOpened": "2025-09-22T19:15:58.03Z",
               "EditorCaption": ""
@@ -61,10 +61,9 @@
               "RelativeDocumentMoniker": "Proyecto1\\Form1.vb",
               "ToolTip": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form1.vb",
               "RelativeToolTip": "Proyecto1\\Form1.vb",
-              "ViewState": "AgIAAA4CAAAAAAAAAAAmwBoCAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAABQCAAAAAAAAAAAmwCACAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-09-05T20:51:31.237Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-05T20:51:31.237Z"
             },
             {
               "$type": "Document",
@@ -75,8 +74,7 @@
               "ToolTip": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form1.vb [Design]",
               "RelativeToolTip": "Proyecto1\\Form1.vb [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-09-05T19:50:08.044Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-09-05T19:50:08.044Z"
             }
           ]
         },
