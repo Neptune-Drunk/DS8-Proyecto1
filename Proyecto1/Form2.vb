@@ -25,6 +25,7 @@ Public Class Form2
 			CheckBox1.Checked = False
 
 			ActualizarContadores(0, 0, 0, 0)
+			ActualizarInfoEmpleado("", "")
 
 		Catch ex As Exception
 			MessageBox.Show($"Error al cargar formulario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -45,9 +46,9 @@ Public Class Form2
 			DateTimePicker2.Visible = True
 		Else
 			DateTimePicker2.Visible = False
-        End If
+		End If
 
-    End Sub
+	End Sub
 
 	Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 		Dim nombreFiltro As String = TextBox1.Text.Trim()
@@ -99,24 +100,48 @@ Public Class Form2
 					MessageBox.Show("No se encontró ningún empleado con ese nombre.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information)
 					DataGridView1.DataSource = Nothing
 					ActualizarContadores(0, 0, 0, 0)
+					ActualizarInfoEmpleado("", "")
 					Return
 				End If
 
+				' Actualizar información del empleado (tomar el primero si hay múltiples)
+				Dim empleadoSeleccionado = empleados.First()
+				ActualizarInfoEmpleado(empleadoSeleccionado.Value, empleadoSeleccionado.Key.ToString())
+
 				Dim dt As New DataTable()
-				dt.Columns.Add("Empleado", GetType(String))
-				dt.Columns.Add("Código", GetType(Integer))
 				dt.Columns.Add("Fecha", GetType(Date))
-				dt.Columns.Add("PrimeraMarca", GetType(String))
-				dt.Columns.Add("ÚltimaMarca", GetType(String))
+				dt.Columns.Add("Día", GetType(String))
+				dt.Columns.Add("Entrada", GetType(String))
+				dt.Columns.Add("Salida", GetType(String))
 				dt.Columns.Add("Tarde", GetType(Boolean))
 
 				Dim totalTardanzas As Integer = 0
 				Dim totalAusencias As Integer = 0
 
+				' Determinar el rango de fechas a mostrar
+				Dim rangoInicio As Date? = Nothing
+				Dim rangoFin As Date? = Nothing
+				Dim mostrarTodosLosDatos As Boolean = False
+
+				If useRange Then
+					rangoInicio = fechaInicio
+					rangoFin = fechaFin
+				ElseIf fechaFiltro.HasValue Then
+					rangoInicio = fechaFiltro.Value
+					rangoFin = fechaFiltro.Value
+				Else
+					' Sin filtros: mostrar todos los datos
+					mostrarTodosLosDatos = True
+				End If
+
 				For Each emp In empleados
 					Dim horario = ObtenerHorario(emp.Key)
 					Dim whereFecha As String = ""
-					If useRange Then
+
+					If mostrarTodosLosDatos Then
+						' Sin filtros: obtener todos los datos
+						whereFecha = ""
+					ElseIf useRange Then
 						whereFecha = " AND fecha BETWEEN @d1 AND @d2"
 					ElseIf fechaFiltro.HasValue Then
 						whereFecha = " AND fecha=@f"
@@ -124,71 +149,66 @@ Public Class Form2
 
 					Dim sql As String = "SELECT fecha, MIN(TIME(hora)) AS primera, MAX(TIME(hora)) AS ultima FROM marcaciones WHERE codigo_marcacion=@c" & whereFecha & " GROUP BY fecha ORDER BY fecha"
 
-					If horario Is Nothing Then
-						' Sin horario: solo mostramos marcas encontradas, no contamos ausencias
-						Using cmd As New MySqlCommand(sql, cn)
-							cmd.Parameters.AddWithValue("@c", emp.Key)
+					' Recopilar datos de marcaciones del empleado
+					Dim marcacionesPorFecha As New Dictionary(Of Date, (Entrada As TimeSpan, Salida As TimeSpan, Tarde As Boolean))
+
+					Using cmd As New MySqlCommand(sql, cn)
+						cmd.Parameters.AddWithValue("@c", emp.Key)
+						If Not mostrarTodosLosDatos Then
 							If useRange Then
-								cmd.Parameters.AddWithValue("@d1", fechaInicio)
-								cmd.Parameters.AddWithValue("@d2", fechaFin)
+								cmd.Parameters.AddWithValue("@d1", rangoInicio.Value)
+								cmd.Parameters.AddWithValue("@d2", rangoFin.Value)
 							ElseIf fechaFiltro.HasValue Then
 								cmd.Parameters.AddWithValue("@f", fechaFiltro.Value)
 							End If
+						End If
 
-							Dim diasConMarca As New HashSet(Of Date)()
-							Using rd = cmd.ExecuteReader()
-								While rd.Read()
-									Dim fecha As Date = rd.GetDateTime(0).Date
-									diasConMarca.Add(fecha)
-									Dim primeraObj = rd.GetValue(1)
-									Dim ultimaObj = rd.GetValue(2)
-									Dim primera As TimeSpan = If(TypeOf primeraObj Is TimeSpan, DirectCast(primeraObj, TimeSpan), TimeSpan.Parse(primeraObj.ToString()))
-									Dim ultima As TimeSpan = If(TypeOf ultimaObj Is TimeSpan, DirectCast(ultimaObj, TimeSpan), TimeSpan.Parse(ultimaObj.ToString()))
-									dt.Rows.Add(emp.Value, emp.Key, fecha, primera.ToString("hh\:mm\:ss"), ultima.ToString("hh\:mm\:ss"), False)
-								End While
-							End Using
+						Using rd = cmd.ExecuteReader()
+							While rd.Read()
+								Dim fecha As Date = rd.GetDateTime(0).Date
+								Dim primeraObj = rd.GetValue(1)
+								Dim ultimaObj = rd.GetValue(2)
+								Dim primera As TimeSpan = If(TypeOf primeraObj Is TimeSpan, DirectCast(primeraObj, TimeSpan), TimeSpan.Parse(primeraObj.ToString()))
+								Dim ultima As TimeSpan = If(TypeOf ultimaObj Is TimeSpan, DirectCast(ultimaObj, TimeSpan), TimeSpan.Parse(ultimaObj.ToString()))
 
-							' No contamos ausencias para empleados sin horario asignado
-						End Using
-					Else
-						Using cmd As New MySqlCommand(sql, cn)
-							cmd.Parameters.AddWithValue("@c", emp.Key)
-							If useRange Then
-								cmd.Parameters.AddWithValue("@d1", fechaInicio)
-								cmd.Parameters.AddWithValue("@d2", fechaFin)
-							ElseIf fechaFiltro.HasValue Then
-								cmd.Parameters.AddWithValue("@f", fechaFiltro.Value)
-							End If
-
-							Dim huboFilas As Boolean = False
-							Dim diasConMarca As New HashSet(Of Date)()
-							Using rd = cmd.ExecuteReader()
-								While rd.Read()
-									huboFilas = True
-									Dim fecha As Date = rd.GetDateTime(0).Date
-									diasConMarca.Add(fecha)
-									Dim primeraObj = rd.GetValue(1)
-									Dim ultimaObj = rd.GetValue(2)
-									Dim primera As TimeSpan = If(TypeOf primeraObj Is TimeSpan, DirectCast(primeraObj, TimeSpan), TimeSpan.Parse(primeraObj.ToString()))
-									Dim ultima As TimeSpan = If(TypeOf ultimaObj Is TimeSpan, DirectCast(ultimaObj, TimeSpan), TimeSpan.Parse(ultimaObj.ToString()))
-
-									Dim esTarde As Boolean = primera > horario.Item1
+								Dim esTarde As Boolean = False
+								If horario IsNot Nothing Then
+									esTarde = primera > horario.Item1
 									If esTarde Then totalTardanzas += 1
+								End If
 
-									dt.Rows.Add(emp.Value, emp.Key, fecha, primera.ToString("hh\:mm\:ss"), ultima.ToString("hh\:mm\:ss"), esTarde)
-								End While
-							End Using
+								marcacionesPorFecha(fecha) = (primera, ultima, esTarde)
+							End While
+						End Using
+					End Using
 
-							If useRange Then
-								Dim totalDiasHabiles As Integer = ContarDiasHabiles(fechaInicio, fechaFin)
-								Dim diasMarcadosHabiles As Integer = diasConMarca.Where(Function(d) EsDiaHabil(d)).Count()
-								totalAusencias += Math.Max(0, totalDiasHabiles - diasMarcadosHabiles)
-							ElseIf fechaFiltro.HasValue Then
-								If EsDiaHabil(fechaInicio) AndAlso Not huboFilas Then
+					If mostrarTodosLosDatos Then
+						' Sin filtros: mostrar solo los días que tienen marcaciones
+						For Each kvp In marcacionesPorFecha
+							Dim fecha As Date = kvp.Key
+							Dim marcacion = kvp.Value
+							Dim nombreDia As String = ObtenerNombreDia(fecha.DayOfWeek)
+							dt.Rows.Add(fecha, nombreDia, marcacion.Entrada.ToString("hh\:mm\:ss"), marcacion.Salida.ToString("hh\:mm\:ss"), marcacion.Tarde)
+						Next
+					Else
+						' Con filtros: generar filas para todos los días del rango (incluyendo fines de semana)
+						Dim fechaActual As Date = rangoInicio.Value
+						While fechaActual <= rangoFin.Value
+							Dim nombreDia As String = ObtenerNombreDia(fechaActual.DayOfWeek)
+
+							If marcacionesPorFecha.ContainsKey(fechaActual) Then
+								Dim marcacion = marcacionesPorFecha(fechaActual)
+								dt.Rows.Add(fechaActual, nombreDia, marcacion.Entrada.ToString("hh\:mm\:ss"), marcacion.Salida.ToString("hh\:mm\:ss"), marcacion.Tarde)
+							Else
+								' Día sin marcación
+								If EsDiaHabil(fechaActual) AndAlso horario IsNot Nothing Then
 									totalAusencias += 1
 								End If
+								dt.Rows.Add(fechaActual, nombreDia, "", "", False)
 							End If
-						End Using
+
+							fechaActual = fechaActual.AddDays(1)
+						End While
 					End If
 				Next
 
@@ -213,6 +233,16 @@ Public Class Form2
 		Label5.Text = $"Justificadas: {justificadas}"
 	End Sub
 
+	Private Sub ActualizarInfoEmpleado(nombre As String, codigo As String)
+		If String.IsNullOrEmpty(nombre) Then
+			LabelNombreEmpleado.Text = "Empleado: -"
+			LabelCodigodeMarcacion.Text = "Código: -"
+		Else
+			LabelNombreEmpleado.Text = $"Empleado: {nombre}"
+			LabelCodigodeMarcacion.Text = $"Código: {codigo}"
+		End If
+	End Sub
+
 	' Cuenta días hábiles (Lunes a Viernes) en el rango inclusivo
 	Private Function ContarDiasHabiles(desde As Date, hasta As Date) As Integer
 		Dim count As Integer = 0
@@ -226,6 +256,28 @@ Public Class Form2
 
 	Private Function EsDiaHabil(d As Date) As Boolean
 		Return d.DayOfWeek <> DayOfWeek.Saturday AndAlso d.DayOfWeek <> DayOfWeek.Sunday
+	End Function
+
+	' Obtener nombre del día de la semana en español
+	Private Function ObtenerNombreDia(dayOfWeek As DayOfWeek) As String
+		Select Case dayOfWeek
+			Case DayOfWeek.Monday
+				Return "Lunes"
+			Case DayOfWeek.Tuesday
+				Return "Martes"
+			Case DayOfWeek.Wednesday
+				Return "Miércoles"
+			Case DayOfWeek.Thursday
+				Return "Jueves"
+			Case DayOfWeek.Friday
+				Return "Viernes"
+			Case DayOfWeek.Saturday
+				Return "Sábado"
+			Case DayOfWeek.Sunday
+				Return "Domingo"
+			Case Else
+				Return dayOfWeek.ToString()
+		End Select
 	End Function
 
 	' Devuelve inicio y fin del horario configurado para el código
@@ -356,40 +408,46 @@ Public Class Form2
 		With DataGridView1
 			If .Columns.Contains("Fecha") Then
 				.Columns("Fecha").DefaultCellStyle.Format = "dd/MM/yyyy"
-				.Columns("Fecha").FillWeight = 20
+				.Columns("Fecha").FillWeight = 25
 				.Columns("Fecha").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 			End If
 
-			If .Columns.Contains("Empleado") Then
-				.Columns("Empleado").FillWeight = 35
-				.Columns("Empleado").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+			If .Columns.Contains("Día") Then
+				.Columns("Día").FillWeight = 20
+				.Columns("Día").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 			End If
 
-			If .Columns.Contains("Código") Then
-				.Columns("Código").FillWeight = 15
-				.Columns("Código").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+			If .Columns.Contains("Entrada") Then
+				.Columns("Entrada").FillWeight = 15
+				.Columns("Entrada").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 			End If
 
-			If .Columns.Contains("PrimeraMarca") Then
-				.Columns("PrimeraMarca").FillWeight = 15
-				.Columns("PrimeraMarca").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-			End If
-
-			If .Columns.Contains("ÚltimaMarca") Then
-				.Columns("ÚltimaMarca").FillWeight = 15
-				.Columns("ÚltimaMarca").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+			If .Columns.Contains("Salida") Then
+				.Columns("Salida").FillWeight = 15
+				.Columns("Salida").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
 			End If
 
 			If .Columns.Contains("Tarde") Then
 				.Columns("Tarde").FillWeight = 10
 				.Columns("Tarde").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-				
-				' Colorear las filas con tardanzas
+
+				' Colorear las filas con tardanzas y fines de semana
 				For Each row As DataGridViewRow In .Rows
 					If row.Cells("Tarde") IsNot Nothing AndAlso TypeOf row.Cells("Tarde").Value Is Boolean Then
 						If CBool(row.Cells("Tarde").Value) Then
 							row.DefaultCellStyle.BackColor = Color.FromArgb(255, 235, 235) ' Fondo rojizo claro
 							row.DefaultCellStyle.ForeColor = Color.FromArgb(169, 68, 66) ' Texto rojizo
+						End If
+					End If
+
+					' Colorear fines de semana
+					If row.Cells("Día") IsNot Nothing Then
+						Dim dia As String = row.Cells("Día").Value?.ToString()
+						If dia = "Sábado" OrElse dia = "Domingo" Then
+							If row.DefaultCellStyle.BackColor = Color.White Then ' Solo si no es tardanza
+								row.DefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240) ' Fondo gris claro
+								row.DefaultCellStyle.ForeColor = Color.FromArgb(100, 100, 100) ' Texto gris
+							End If
 						End If
 					End If
 				Next
