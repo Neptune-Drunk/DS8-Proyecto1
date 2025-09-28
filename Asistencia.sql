@@ -67,3 +67,51 @@ CREATE TABLE marcaciones (
     CONSTRAINT fk_marcaciones_empleados
         FOREIGN KEY (codigo_marcacion) REFERENCES empleados(codigo_marcacion)
 );
+
+-- Tabla para registrar días libres (actualizada para compatibilidad con xasistencia)
+CREATE TABLE dias_libres (
+    fecha DATE NOT NULL UNIQUE,
+    detalle VARCHAR(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Datos reales de días libres (extraídos de xasistencia)
+INSERT INTO dias_libres (fecha, detalle) VALUES
+('2023-01-02', 'Año Nuevo - Día Puente'),
+('2023-01-09', 'Día de los Martires'),
+('2023-02-20', 'Lunes de Carnaval'),
+('2023-02-21', 'Martes de Carnaval'),
+('2023-02-22', 'Miércoles de Ceniza'),
+('2023-03-15', 'Clases Suspendidas - MEDUCA'),
+('2023-04-06', 'Jueves Santo'),
+('2023-04-07', 'Viernes Santo'),
+('2023-05-01', 'Día del Trabajo'),
+('2023-06-12', 'Cerrado por Limpieza - Votaciones'),
+('2023-12-08', 'Día de la Madre'),
+('2023-12-20', 'Duelo Nacional '),
+('2023-12-25', 'Navidad'),
+('2024-01-01', 'Año Nuevo'),
+('2024-01-09', 'Martires'),
+('2024-02-12', 'Carnaval'),
+('2024-02-13', 'Carnaval'),
+('2024-02-14', 'Miércoles de Ceniza'),
+('2024-03-01', 'Misa de Inicio de Año Escolar 2024'),
+('2024-03-28', 'Jueves Santo'),
+('2024-03-29', 'Viernes Santo'),
+('2024-05-01', 'Día del Trabajador'),
+('2024-05-06', 'Elecciones 2024 (día después)'),
+('2024-07-01', 'Toma de Posesión Presidencial'),
+('2024-09-12', 'Fundación - La Chorrera'),
+('2024-11-04', 'Fiestas Patrias'),
+('2024-11-05', 'Fiestas Patrias'),
+('2024-11-06', 'Cierre de Escuelas por mal tiempo'),
+('2024-11-11', 'Fiestas Patrias - Puente'),
+('2024-11-28', 'Fiestas Patrias'),
+('2024-11-29', 'Día del Maestro'),
+('2024-12-09', 'Día Puente - Día de las Madres'),
+('2024-12-20', 'Duelo Nacional'),
+('2024-12-24', 'Noche Buena'),
+('2024-12-25', 'Navidad'),
+('2025-01-01', 'Año Nuevo');
+
+-- Índice único para la fecha
+ALTER TABLE dias_libres ADD UNIQUE KEY indice (fecha) USING BTREE;
