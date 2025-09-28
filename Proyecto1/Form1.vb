@@ -542,6 +542,9 @@ Public Class Form1
     End Sub
 
     Private Sub DiasLibresToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DiasLibresToolStripMenuItem.Click
-
+        ' Navegar al formulario de días libres (Form3)
+        Dim form3 As New Form3()
+        form3.Show()
+        Me.Hide()
     End Sub
 End Class

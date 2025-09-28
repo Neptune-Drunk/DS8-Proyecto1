@@ -462,8 +462,10 @@ Public Class Form2
     End Sub
 
     Private Sub DiasLibresToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DiasLibresToolStripMenuItem.Click
-        ' Aquí se puede implementar la funcionalidad para gestionar días libres/feriados
-        MessageBox.Show("Funcionalidad de Días Libres en desarrollo", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        ' Navegar al formulario de días libres (Form3)
+        Dim form3 As New Form3()
+        form3.Show()
+        Me.Hide()
     End Sub
     
     Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click

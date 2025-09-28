@@ -74,6 +74,12 @@ Public Class Form3
             TextBox1.Text = detalle
             TextBox1.Focus()
 
+            MessageBox.Show($"Datos cargados para edición:{vbNewLine}{vbNewLine}" &
+                          $"📅 Fecha: {fecha.ToString("dd/MM/yyyy")}{vbNewLine}" &
+                          $"📝 Detalle: {detalle}{vbNewLine}{vbNewLine}" &
+                          "Puede modificar el detalle y hacer clic en 'Grabar' para actualizar.",
+                          "Día Libre Seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
 
         End If
     End Sub
@@ -252,6 +258,8 @@ Public Class Form3
                             Dim totalDias As Integer = Convert.ToInt32(cmdTotal.ExecuteScalar())
                             Dim diasAnoActual As Integer = Convert.ToInt32(cmdAnoActual.ExecuteScalar())
                             Dim diasProximos As Integer = Convert.ToInt32(cmdProximos.ExecuteScalar())
+
+                            ' Estadísticas calculadas pero no mostradas en MessageBox
 
 
                         End Using
