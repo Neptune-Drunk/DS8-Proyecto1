@@ -3,11 +3,15 @@
   "WorkspaceRootPath": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|d:\\proyectos de vb\\proyecto1\\proyecto1\\proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
       "RelativeMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|solutionrelative:proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|d:\\proyectos de vb\\proyecto1\\proyecto1\\proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|d:\\proyectos de vb\\proyecto1\\proyecto1\\proyecto1\\form2.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|solutionrelative:proyecto1\\form2.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
       "RelativeMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|solutionrelative:proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
@@ -26,17 +30,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Form2.Designer.vb",
+              "DocumentMoniker": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form2.Designer.vb",
+              "RelativeDocumentMoniker": "Proyecto1\\Form2.Designer.vb",
+              "ToolTip": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form2.Designer.vb",
+              "RelativeToolTip": "Proyecto1\\Form2.Designer.vb",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwAQAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2025-09-26T21:50:14.633Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Form2.vb",
               "DocumentMoniker": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form2.vb",
               "RelativeDocumentMoniker": "Proyecto1\\Form2.vb",
               "ToolTip": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form2.vb",
               "RelativeToolTip": "Proyecto1\\Form2.vb",
-              "ViewState": "AgIAAOcAAAAAAAAAAADwvxsBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAPkAAAAAAAAAAAAAAHIAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
               "WhenOpened": "2025-09-22T19:15:58.03Z",
               "EditorCaption": ""
@@ -55,7 +72,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Form1.vb",
               "DocumentMoniker": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form1.vb",
               "RelativeDocumentMoniker": "Proyecto1\\Form1.vb",
@@ -67,7 +84,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Form1.vb [Design]",
               "DocumentMoniker": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form1.vb",
               "RelativeDocumentMoniker": "Proyecto1\\Form1.vb",
