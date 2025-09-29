@@ -314,15 +314,15 @@ Public Class Form3
 
     Private Sub InsertarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InsertarToolStripMenuItem.Click
         ' Navegar al formulario principal de inserción (Form1)
-        Dim form1 As New Form1()
-        form1.Show()
+        Dim formInsertar As New Form1()
+        formInsertar.Show()
         Me.Hide()
     End Sub
 
     Private Sub ConsultaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsultaToolStripMenuItem.Click
         ' Navegar al formulario de consulta (Form2)
-        Dim form2 As New Form2()
-        form2.Show()
+        Dim consultaForm As New Form2()
+        consultaForm.Show()
         Me.Hide()
     End Sub
 
