@@ -25,7 +25,6 @@ Public Class Form3
         MenuToolStripMenuItem.ForeColor = Color.White
         InsertarToolStripMenuItem.ForeColor = Color.White
         ConsultaToolStripMenuItem.ForeColor = Color.White
-        DiasLibresToolStripMenuItem.ForeColor = Color.White
 
         ' Configurar botón con estilo moderno (igual que Form1)
         ConfigurarBoton(Button1, Color.FromArgb(46, 204, 113), Color.White)
@@ -330,23 +329,6 @@ Public Class Form3
         ' Permitir Enter para grabar directamente
         If e.KeyChar = Convert.ToChar(13) Then
             Button1_Click(sender, e)
-        End If
-    End Sub
-
-    Private Sub DiasLibresToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DiasLibresToolStripMenuItem.Click
-        ' Mostrar menú de opciones avanzadas para días libres
-        Dim opciones As String = "Opciones de Días Libres:" & vbNewLine & vbNewLine &
-                               "• Ya está en el módulo de Días Libres" & vbNewLine &
-                               "• Use 'Ver Lista' para consultar todos los días" & vbNewLine &
-                               "• Doble clic en una fecha para editarla" & vbNewLine &
-                               "• Presione ESC para ocultar la lista" & vbNewLine & vbNewLine &
-                               "¿Desea buscar días libres por año específico?"
-
-        Dim resultado As DialogResult = MessageBox.Show(opciones, "Días Libres - Opciones",
-                                                       MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
-        If resultado = DialogResult.Yes Then
-            BuscarPorAno()
         End If
     End Sub
 

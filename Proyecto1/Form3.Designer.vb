@@ -35,7 +35,6 @@ Partial Class Form3
         Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.InsertarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConsultaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DiasLibresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -45,7 +44,7 @@ Partial Class Form3
         Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.DateTimePicker1.Location = New System.Drawing.Point(78, 100)
         Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(120, 26)
+        Me.DateTimePicker1.Size = New System.Drawing.Size(120, 23)
         Me.DateTimePicker1.TabIndex = 0
         '
         'Button1
@@ -85,7 +84,7 @@ Partial Class Form3
         Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox1.Location = New System.Drawing.Point(220, 100)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(200, 26)
+        Me.TextBox1.Size = New System.Drawing.Size(200, 23)
         Me.TextBox1.TabIndex = 2
         '
         'Label1
@@ -95,7 +94,7 @@ Partial Class Form3
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
         Me.Label1.Location = New System.Drawing.Point(75, 81)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(35, 19)
+        Me.Label1.Size = New System.Drawing.Size(28, 15)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Día:"
         '
@@ -106,7 +105,7 @@ Partial Class Form3
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
         Me.Label2.Location = New System.Drawing.Point(217, 81)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(60, 19)
+        Me.Label2.Size = New System.Drawing.Size(50, 15)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Detalle:"
         '
@@ -117,56 +116,9 @@ Partial Class Form3
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
         Me.Label3.Location = New System.Drawing.Point(230, 40)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(107, 25)
+        Me.Label3.Size = New System.Drawing.Size(92, 21)
         Me.Label3.TabIndex = 5
         Me.Label3.Text = "Días Libres"
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.BackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
-        Me.MenuStrip1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuToolStripMenuItem, Me.InsertarToolStripMenuItem, Me.ConsultaToolStripMenuItem, Me.DiasLibresToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(584, 28)
-        Me.MenuStrip1.TabIndex = 6
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'MenuToolStripMenuItem
-        '
-        Me.MenuToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SalirToolStripMenuItem})
-        Me.MenuToolStripMenuItem.ForeColor = System.Drawing.Color.White
-        Me.MenuToolStripMenuItem.Name = "MenuToolStripMenuItem"
-        Me.MenuToolStripMenuItem.Size = New System.Drawing.Size(60, 24)
-        Me.MenuToolStripMenuItem.Text = "Menu"
-        '
-        'SalirToolStripMenuItem
-        '
-        Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(116, 26)
-        Me.SalirToolStripMenuItem.Text = "Salir"
-        '
-        'InsertarToolStripMenuItem
-        '
-        Me.InsertarToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.InsertarToolStripMenuItem.Name = "InsertarToolStripMenuItem"
-        Me.InsertarToolStripMenuItem.Size = New System.Drawing.Size(73, 24)
-        Me.InsertarToolStripMenuItem.Text = "Insertar"
-        '
-        'ConsultaToolStripMenuItem
-        '
-        Me.ConsultaToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ConsultaToolStripMenuItem.Name = "ConsultaToolStripMenuItem"
-        Me.ConsultaToolStripMenuItem.Size = New System.Drawing.Size(80, 24)
-        Me.ConsultaToolStripMenuItem.Text = "Consulta"
-        '
-        'DiasLibresToolStripMenuItem
-        '
-        Me.DiasLibresToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.DiasLibresToolStripMenuItem.Name = "DiasLibresToolStripMenuItem"
-        Me.DiasLibresToolStripMenuItem.Size = New System.Drawing.Size(95, 24)
-        Me.DiasLibresToolStripMenuItem.Text = "Dias Libres"
         '
         'DataGridView1
         '
@@ -183,9 +135,49 @@ Partial Class Form3
         Me.DataGridView1.TabIndex = 8
         Me.DataGridView1.Visible = False
         '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.BackColor = System.Drawing.Color.FromArgb(CType(CType(52, Byte), Integer), CType(CType(73, Byte), Integer), CType(CType(94, Byte), Integer))
+        Me.MenuStrip1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuToolStripMenuItem, Me.InsertarToolStripMenuItem, Me.ConsultaToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(584, 24)
+        Me.MenuStrip1.TabIndex = 6
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'MenuToolStripMenuItem
+        '
+        Me.MenuToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SalirToolStripMenuItem})
+        Me.MenuToolStripMenuItem.ForeColor = System.Drawing.Color.White
+        Me.MenuToolStripMenuItem.Name = "MenuToolStripMenuItem"
+        Me.MenuToolStripMenuItem.Size = New System.Drawing.Size(50, 20)
+        Me.MenuToolStripMenuItem.Text = "Menu"
+        '
+        'SalirToolStripMenuItem
+        '
+        Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SalirToolStripMenuItem.Text = "Salir"
+        '
+        'InsertarToolStripMenuItem
+        '
+        Me.InsertarToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.InsertarToolStripMenuItem.Name = "InsertarToolStripMenuItem"
+        Me.InsertarToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
+        Me.InsertarToolStripMenuItem.Text = "Insertar"
+        '
+        'ConsultaToolStripMenuItem
+        '
+        Me.ConsultaToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.ConsultaToolStripMenuItem.Name = "ConsultaToolStripMenuItem"
+        Me.ConsultaToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
+        Me.ConsultaToolStripMenuItem.Text = "Consulta"
+        '
         'Form3
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 19.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(236, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(241, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(584, 400)
@@ -204,9 +196,9 @@ Partial Class Form3
         Me.Name = "Form3"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Días Libres - Registro"
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -224,6 +216,5 @@ Partial Class Form3
     Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents InsertarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConsultaToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DiasLibresToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DataGridView1 As DataGridView
 End Class

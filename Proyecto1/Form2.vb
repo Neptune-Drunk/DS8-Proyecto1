@@ -114,9 +114,11 @@ Public Class Form2
 				dt.Columns.Add("Entrada", GetType(String))
 				dt.Columns.Add("Salida", GetType(String))
 				dt.Columns.Add("Tarde", GetType(Boolean))
+				dt.Columns.Add("Observación", GetType(String))
 
 				Dim totalTardanzas As Integer = 0
 				Dim totalAusencias As Integer = 0
+				Dim totalJustificadas As Integer = 0
 
 				' Determinar el rango de fechas a mostrar
 				Dim rangoInicio As Date? = Nothing
@@ -174,7 +176,19 @@ Public Class Form2
 								Dim esTarde As Boolean = False
 								If horario IsNot Nothing Then
 									esTarde = primera > horario.Item1
-									If esTarde Then totalTardanzas += 1
+									If esTarde Then
+										totalTardanzas += 1
+										Console.WriteLine($"Tardanza detectada en fecha: {fecha.ToString("dd/MM/yyyy")}")
+										' Verificar si la tardanza coincide con un día libre (justificada)
+										Dim diaLibre As String = ObtenerDiaLibre(fecha)
+										Console.WriteLine($"Resultado de ObtenerDiaLibre: '{diaLibre}'")
+										If Not String.IsNullOrEmpty(diaLibre) Then
+											totalJustificadas += 1
+											Console.WriteLine($"Tardanza justificada encontrada: {fecha.ToString("dd/MM/yyyy")} - {diaLibre}")
+										Else
+											Console.WriteLine($"Tardanza NO justificada para fecha: {fecha.ToString("dd/MM/yyyy")}")
+										End If
+									End If
 								End If
 
 								marcacionesPorFecha(fecha) = (primera, ultima, esTarde)
@@ -188,7 +202,11 @@ Public Class Form2
 							Dim fecha As Date = kvp.Key
 							Dim marcacion = kvp.Value
 							Dim nombreDia As String = ObtenerNombreDia(fecha.DayOfWeek)
-							dt.Rows.Add(fecha, nombreDia, marcacion.Entrada.ToString("hh\:mm\:ss"), marcacion.Salida.ToString("hh\:mm\:ss"), marcacion.Tarde)
+
+							' Obtener observación solo de días libres
+							Dim observacion As String = ObtenerDiaLibre(fecha)
+
+							dt.Rows.Add(fecha, nombreDia, marcacion.Entrada.ToString("hh\:mm\:ss"), marcacion.Salida.ToString("hh\:mm\:ss"), marcacion.Tarde, observacion)
 						Next
 					Else
 						' Con filtros: generar filas para todos los días del rango (incluyendo fines de semana)
@@ -196,15 +214,18 @@ Public Class Form2
 						While fechaActual <= rangoFin.Value
 							Dim nombreDia As String = ObtenerNombreDia(fechaActual.DayOfWeek)
 
+							' Obtener observación solo de días libres
+							Dim observacion As String = ObtenerDiaLibre(fechaActual)
+
 							If marcacionesPorFecha.ContainsKey(fechaActual) Then
 								Dim marcacion = marcacionesPorFecha(fechaActual)
-								dt.Rows.Add(fechaActual, nombreDia, marcacion.Entrada.ToString("hh\:mm\:ss"), marcacion.Salida.ToString("hh\:mm\:ss"), marcacion.Tarde)
+								dt.Rows.Add(fechaActual, nombreDia, marcacion.Entrada.ToString("hh\:mm\:ss"), marcacion.Salida.ToString("hh\:mm\:ss"), marcacion.Tarde, observacion)
 							Else
 								' Día sin marcación
 								If EsDiaHabil(fechaActual) AndAlso horario IsNot Nothing Then
 									totalAusencias += 1
 								End If
-								dt.Rows.Add(fechaActual, nombreDia, "", "", False)
+								dt.Rows.Add(fechaActual, nombreDia, "", "", False, observacion)
 							End If
 
 							fechaActual = fechaActual.AddDays(1)
@@ -217,7 +238,13 @@ Public Class Form2
 				' Configurar columnas específicas
 				ConfigurarColumnasDataGrid()
 
-				ActualizarContadores(totalAusencias, totalTardanzas, totalTardanzas, 0)
+				' Calcular tardanzas injustificadas (total tardanzas - justificadas)
+				Dim totalInjustificadas As Integer = totalTardanzas - totalJustificadas
+
+				' Debug: mostrar contadores finales
+				Console.WriteLine($"Contadores finales - Tardanzas: {totalTardanzas}, Justificadas: {totalJustificadas}, Injustificadas: {totalInjustificadas}")
+
+				ActualizarContadores(totalAusencias, totalTardanzas, totalInjustificadas, totalJustificadas)
 			End Using
 		Catch ex As MySqlException
 			MessageBox.Show($"Error de base de datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -296,6 +323,33 @@ Public Class Form2
 		End If
 
 		Return Nothing
+	End Function
+
+	' Función para obtener el detalle de día libre según la fecha
+	Private Function ObtenerDiaLibre(fecha As Date) As String
+		Try
+			' Crear nueva conexión para evitar conflictos con DataReader principal
+			Using cnLocal As New MySqlConnection(conexion)
+				cnLocal.Open()
+				Dim sql As String = "SELECT detalle FROM dias_libres WHERE fecha = @fecha"
+				Using cmd As New MySqlCommand(sql, cnLocal)
+					cmd.Parameters.AddWithValue("@fecha", fecha.Date) ' Asegurar formato de fecha
+					Console.WriteLine($"Consultando día libre para fecha: {fecha.ToString("yyyy-MM-dd")}")
+					Dim resultado = cmd.ExecuteScalar()
+					If resultado IsNot Nothing Then
+						Console.WriteLine($"Día libre encontrado: {resultado.ToString()}")
+						Return resultado.ToString()
+					Else
+						Console.WriteLine("No se encontró día libre para esta fecha")
+					End If
+				End Using
+			End Using
+		Catch ex As MySqlException
+			Console.WriteLine($"Error MySQL en ObtenerDiaLibre: {ex.Message}")
+		Catch ex As Exception
+			Console.WriteLine($"Error general en ObtenerDiaLibre: {ex.Message}")
+		End Try
+		Return ""
 	End Function
 
 	' Método para configurar la apariencia general del formulario
@@ -451,6 +505,13 @@ Public Class Form2
 						End If
 					End If
 				Next
+			End If
+
+			If .Columns.Contains("Observación") Then
+				.Columns("Observación").FillWeight = 25
+				.Columns("Observación").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+				.Columns("Observación").DefaultCellStyle.Font = New Font("Segoe UI", 8, FontStyle.Italic)
+				.Columns("Observación").DefaultCellStyle.ForeColor = Color.FromArgb(52, 73, 94)
 			End If
 		End With
 	End Sub
