@@ -1,25 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\",
+  "WorkspaceRootPath": "C:\\Users\\fioni\\source\\repos\\Neptune-Drunk\\DS8-Proyecto1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|d:\\proyectos de vb\\proyecto1\\proyecto1\\proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
-      "RelativeMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|solutionrelative:proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
+      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|c:\\users\\fioni\\source\\repos\\neptune-drunk\\ds8-proyecto1\\proyecto1\\form3.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|solutionrelative:proyecto1\\form3.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|d:\\proyectos de vb\\proyecto1\\proyecto1\\proyecto1\\form2.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|solutionrelative:proyecto1\\form2.designer.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|solutionrelative:proyecto1\\form2.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\proyecto1\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
-      "RelativeMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|solutionrelative:proyecto1\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\proyecto1\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
+      "AbsoluteMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|C:\\Users\\fioni\\source\\repos\\Neptune-Drunk\\DS8-Proyecto1\\proyecto1\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form",
       "RelativeMoniker": "D:0:0:{FC91E622-AA64-4490-89E0-B797A299B566}|Proyecto1\\Proyecto1.vbproj|solutionrelative:proyecto1\\form1.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}|Form"
     }
   ],
@@ -29,83 +17,32 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "DockedWidth": 329,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Form2.Designer.vb",
-              "DocumentMoniker": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form2.Designer.vb",
-              "RelativeDocumentMoniker": "Proyecto1\\Form2.Designer.vb",
-              "ToolTip": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form2.Designer.vb",
-              "RelativeToolTip": "Proyecto1\\Form2.Designer.vb",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAwAQAAAA7AAAAAAAAAA==",
+              "Title": "Form1.vb [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\fioni\\source\\repos\\Neptune-Drunk\\DS8-Proyecto1\\Proyecto1\\Form1.vb",
+              "RelativeDocumentMoniker": "Proyecto1\\Form1.vb",
+              "ToolTip": "C:\\Users\\fioni\\source\\repos\\Neptune-Drunk\\DS8-Proyecto1\\Proyecto1\\Form1.vb [Dise\u00F1o]",
+              "RelativeToolTip": "Proyecto1\\Form1.vb [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-09-26T21:50:14.633Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Form2.vb",
-              "DocumentMoniker": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form2.vb",
-              "RelativeDocumentMoniker": "Proyecto1\\Form2.vb",
-              "ToolTip": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form2.vb",
-              "RelativeToolTip": "Proyecto1\\Form2.vb",
-              "ViewState": "AgIAAPkAAAAAAAAAAAAAAHIAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-09-22T19:15:58.03Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-28T19:09:38.942Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Form2.vb [Design]",
-              "DocumentMoniker": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form2.vb",
-              "RelativeDocumentMoniker": "Proyecto1\\Form2.vb",
-              "ToolTip": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form2.vb [Design]",
-              "RelativeToolTip": "Proyecto1\\Form2.vb [Design]",
+              "Title": "Form3.vb",
+              "DocumentMoniker": "C:\\Users\\fioni\\source\\repos\\Neptune-Drunk\\DS8-Proyecto1\\Proyecto1\\Form3.vb",
+              "RelativeDocumentMoniker": "Proyecto1\\Form3.vb",
+              "ToolTip": "C:\\Users\\fioni\\source\\repos\\Neptune-Drunk\\DS8-Proyecto1\\Proyecto1\\Form3.vb",
+              "RelativeToolTip": "Proyecto1\\Form3.vb",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAiwG8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-09-22T19:14:59.675Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Form1.vb",
-              "DocumentMoniker": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form1.vb",
-              "RelativeDocumentMoniker": "Proyecto1\\Form1.vb",
-              "ToolTip": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form1.vb",
-              "RelativeToolTip": "Proyecto1\\Form1.vb",
-              "ViewState": "AgIAABQCAAAAAAAAAAAmwCACAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-09-05T20:51:31.237Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Form1.vb [Design]",
-              "DocumentMoniker": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form1.vb",
-              "RelativeDocumentMoniker": "Proyecto1\\Form1.vb",
-              "ToolTip": "D:\\Proyectos de VB\\Proyecto1\\Proyecto1\\Proyecto1\\Form1.vb [Design]",
-              "RelativeToolTip": "Proyecto1\\Form1.vb [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
-              "WhenOpened": "2025-09-05T19:50:08.044Z"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+              "WhenOpened": "2025-09-28T17:52:35.51Z",
+              "EditorCaption": ""
             }
           ]
         }
