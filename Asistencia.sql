@@ -111,7 +111,24 @@ INSERT INTO dias_libres (fecha, detalle) VALUES
 ('2024-12-20', 'Duelo Nacional'),
 ('2024-12-24', 'Noche Buena'),
 ('2024-12-25', 'Navidad'),
-('2025-01-01', 'Año Nuevo');
+('2025-01-01', 'Año Nuevo'),
+('2025-01-09', 'Día de los Mártires'),
+('2025-03-03', 'Lunes de Carnaval'),
+('2025-03-04', 'Martes de Carnaval'),
+('2025-03-05', 'Miércoles de Ceniza'),
+('2025-04-17', 'Jueves Santo'),
+('2025-04-18', 'Viernes Santo'),
+('2025-05-01', 'Día del Trabajador'),
+('2025-09-12', 'Fundación - La Chorrera'),
+('2025-11-03', 'Fiestas Patrias'),
+('2025-11-04', 'Fiestas Patrias'),
+('2025-11-05', 'Fiestas Patrias'),
+('2025-11-10', 'Fiestas Patrias'),
+('2025-11-28', 'Fiestas Patrias'),
+('2025-12-08', 'Día de las Madres'),
+('2025-12-20', 'Duelo Nacional'),
+('2025-12-24', 'Noche Buena'),
+('2025-12-25', 'Navidad');
 
 -- Índice único para la fecha
 ALTER TABLE dias_libres ADD UNIQUE KEY indice (fecha) USING BTREE;
